@@ -109,30 +109,54 @@
     frames = frames || [];
     tag = tag || 'tag' + Math.round(new Date().getTime() / 1000);
 
-    var i = 0;
-    var length = frames.length;
-    var imageArr = [];
-    var image;
-
     frameList[tag] = {
       status: 0,
       res: []
     };
-
-    // TODO: 队列加载图片
-    for (; i < length; i++) {
-      image = new Image();
-      image.onload = onload(tag, i, length);
-      image.src = frames[i];
-    }
+    
+    queue({
+      start: 0,
+      total: frames.length,
+      imageArr: [],
+      frames: frames,
+      tag: tag
+    });
   }
 
-  function onload(tag, num, sum) {
-    var rate = parseInt(((num + 1) / sum) * 100);
-    return function callback() {
-      frameList[tag].status = rate;
-      frameList[tag].res.push(this);
+  function queue(params) {
+    var rate, image, timer, clearTimer;
+
+    if (params.start >= params.total) {
+      return;
+    }
+
+    clearTimer = function() {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      params.start++;
+      queue(params);
     };
+
+    image = new Image();
+    image.onload = image.onabort = image.onerror = null;
+
+    image.onload = function() {
+      rate = parseInt(((params.start + 1) / params.total) * 100);
+      frameList[params.tag].status = rate;
+      frameList[params.tag].res.push(this);
+
+      clearTimer();
+    };
+    image.onerror = function() {
+      clearTimer();
+    };
+    image.src = params.frames[params.start];
+
+    timer = setInterval(function() {
+      clearTimer();
+    }, 2000);
   }
 
   /**
@@ -165,32 +189,6 @@
       console.log('Failed to play frames');
     }
   }
-
-  // function loop(params) {
-  //   if (!looping) {
-  //     return;
-  //   }
-
-  //   var currentTime = Date.now();
-  //   var deltaTime = currentTime - lastTime;
-
-  //   var i = params[0];
-  //   var length = params[1];
-  //   var tag = params[2];
-  //   var interval = params[3];
-
-  //   if ((deltaTime >= interval) && (i < length)) {
-  //     console.log(frameList[tag].res[i]);
-  //     context.drawImage(frameList[tag].res[i], 0, 0, config.width, config.height);
-
-  //     params[0]++;
-  //     lastTime = currentTime;
-  //   } else if (i >= length) {
-  //     looping = false;
-  //   }
-
-  //   requestAnimationFrame(loop.bind(this, params));
-  // }
 
   framePlayer.init = init;
   framePlayer.loadFrame = loadFrame;
