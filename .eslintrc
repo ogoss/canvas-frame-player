@@ -1,0 +1,8 @@
+{
+	"rules": {
+  	"quotes": [2, "single"],
+  	"semi": 2,
+  	"no-loop-func": 2,
+  	"no-useless-call": 2
+  }
+}

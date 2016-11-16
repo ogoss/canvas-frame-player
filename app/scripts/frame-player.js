@@ -28,6 +28,9 @@
   var canvas;
   var context;
 
+  var lastTime = 0;
+  var looping = false;
+
   function init(param) {
     clone(config, param);
 
@@ -101,14 +104,47 @@
   /**
    * 播放序列帧
    * @param  {String} tag 序列帧索引
+   * @param  {Number} duration 持续时间，单位ms
    */
-  function play(tag) {
+  function play(tag, duration) {
+    var i, length, interval;
     if (frameList[tag].status === 100) {
-      console.log(frameList[tag]);
-      context.drawImage(frameList[tag].res[0], 0, 0, config.width, config.height);
+      i = 0;
+      length = frameList[tag].res.length;
+      lastTime = Date.now();
+      interval = duration / length;
+      looping = true;
+
+      loop([i, length, tag, interval]);
     } else {
       console.log('Failed to play frames');
     }
+  }
+
+  function loop(params) {
+    if (!looping) {
+      return;
+    }
+
+    var currentTime = Date.now();
+    var deltaTime = currentTime - lastTime;
+
+    var i = params[0];
+    var length = params[1];
+    var tag = params[2];
+    var interval = params[3];
+
+    if ((deltaTime >= interval) && (i < length)) {
+      console.log(frameList[tag].res[i]);
+      context.drawImage(frameList[tag].res[i], 0, 0, config.width, config.height);
+
+      params[0]++;
+      lastTime = currentTime;
+    } else if (i >= length) {
+      looping = false;
+    }
+
+    requestAnimationFrame(loop.bind(this, params));
   }
 
   framePlayer.init = init;

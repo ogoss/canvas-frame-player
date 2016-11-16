@@ -4,12 +4,6 @@ var bs = require('browser-sync').create();
 var CLIEngine = require('eslint').CLIEngine;
 
 var cli = new CLIEngine({
-  rules: {
-    'quotes': [2, 'single'],
-    'semi': 2,
-    'no-loop-func': 2
-  },
-  useEslintrc: false,
   cache: true,
   cacheLocation: './.tmp/'
 });
