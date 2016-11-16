@@ -67,15 +67,15 @@
 
   /**
    * 加载序列帧图片
-   * @param {Array} frameSrc 序列帧数组
+   * @param {Array} frames 序列帧数组
    * @param {String} tag 序列帧索引
    */
-  function loadFrame(frameSrc, tag) {
-    frameSrc = frameSrc || [];
+  function loadFrame(frames, tag) {
+    frames = frames || [];
     tag = tag || 'tag' + Math.round(new Date().getTime() / 1000);
 
     var i = 0;
-    var length = frameSrc.length;
+    var length = frames.length;
     var imageArr = [];
     var image;
 
@@ -87,7 +87,7 @@
     for (; i < length; i++) {
       image = new Image();
       image.onload = onload(tag, i, length);
-      image.src = frameSrc[i];
+      image.src = frames[i];
     }
 
     return tag;
