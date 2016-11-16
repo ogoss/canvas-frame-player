@@ -27,8 +27,8 @@ framePlayer.init({
 
 - nodeName: canvas外层元素
 - nodeClass: canvas外层元素样式类名
-- width: (default: 750) canvas宽度
-- height: (default: 1207) canvas高度
+- width: (default: 750px) canvas宽度
+- height: (default: 1207px) canvas高度
 
 ## 方法调用
 

@@ -5,15 +5,15 @@
 (function(global, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD
-    define([], factory);
+    define(['loop'], factory);
   } else if (typeof exports === 'object') {
     // CommonJS
-    module.exports = factory();
+    module.exports = factory(require('loop'));
   } else {
     // Browser globals
-    global.framePlayer = factory();
+    global.framePlayer = factory(global.loop);
   }
-}(window, function() {
+}(window, function(loop) {
   var document = window.document;
 
   var framePlayer = {};
@@ -28,8 +28,16 @@
   var canvas;
   var context;
 
+  var currentTime = 0;
   var lastTime = 0;
+  var deltaTime = 0;
+  var start = 0;
+  var total = 0;
+  var interval = 0;
   var looping = false;
+  var loopObj = {};
+  var loopFunc;
+  var isFunc = false;
 
   function init(param) {
     clone(config, param);
@@ -65,6 +73,33 @@
     }
   }
 
+  function startLoop() {
+    isFunc = isFunction(loopFunc);
+    lastTime = Date.now();
+    looping = true;
+    loop();
+  }
+
+  function loop() {
+    if (!looping) {
+      return;
+    }
+
+    currentTime = Date.now();
+    deltaTime = currentTime - lastTime;
+
+    if (isFunc) {
+      loopFunc();
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  function isFunction(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+  }
+
   /**
    * 加载序列帧图片
    * @param {Array} frames 序列帧数组
@@ -84,13 +119,12 @@
       res: []
     };
 
+    // TODO: 队列加载图片
     for (; i < length; i++) {
       image = new Image();
       image.onload = onload(tag, i, length);
       image.src = frames[i];
     }
-
-    return tag;
   }
 
   function onload(tag, num, sum) {
@@ -107,45 +141,56 @@
    * @param  {Number} duration 持续时间，单位ms
    */
   function play(tag, duration) {
-    var i, length, interval;
     if (frameList[tag].status === 100) {
-      i = 0;
-      length = frameList[tag].res.length;
-      lastTime = Date.now();
-      interval = duration / length;
-      looping = true;
+      start = 0;
+      total = frameList[tag].res.length;
+      interval = duration / total;
+      loopObj = {
+        tag: tag
+      };
+      loopFunc = function func() {
+        if ((deltaTime >= interval) && (start < total)) {
+          console.log(frameList[loopObj.tag].res[start]);
+          context.drawImage(frameList[loopObj.tag].res[start], 0, 0, config.width, config.height);
 
-      loop([i, length, tag, interval]);
+          start++;
+          lastTime = currentTime;
+        } else if (start >= total) {
+          looping = false;
+        }
+      };
+
+      startLoop();
     } else {
       console.log('Failed to play frames');
     }
   }
 
-  function loop(params) {
-    if (!looping) {
-      return;
-    }
+  // function loop(params) {
+  //   if (!looping) {
+  //     return;
+  //   }
 
-    var currentTime = Date.now();
-    var deltaTime = currentTime - lastTime;
+  //   var currentTime = Date.now();
+  //   var deltaTime = currentTime - lastTime;
 
-    var i = params[0];
-    var length = params[1];
-    var tag = params[2];
-    var interval = params[3];
+  //   var i = params[0];
+  //   var length = params[1];
+  //   var tag = params[2];
+  //   var interval = params[3];
 
-    if ((deltaTime >= interval) && (i < length)) {
-      console.log(frameList[tag].res[i]);
-      context.drawImage(frameList[tag].res[i], 0, 0, config.width, config.height);
+  //   if ((deltaTime >= interval) && (i < length)) {
+  //     console.log(frameList[tag].res[i]);
+  //     context.drawImage(frameList[tag].res[i], 0, 0, config.width, config.height);
 
-      params[0]++;
-      lastTime = currentTime;
-    } else if (i >= length) {
-      looping = false;
-    }
+  //     params[0]++;
+  //     lastTime = currentTime;
+  //   } else if (i >= length) {
+  //     looping = false;
+  //   }
 
-    requestAnimationFrame(loop.bind(this, params));
-  }
+  //   requestAnimationFrame(loop.bind(this, params));
+  // }
 
   framePlayer.init = init;
   framePlayer.loadFrame = loadFrame;
