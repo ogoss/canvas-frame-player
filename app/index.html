@@ -30,18 +30,26 @@
     // var $pause = document.querySelector('#pause');
     // var $stop = document.querySelector('#stop');
 
-    framePlayer.init({
-      nodeClass: 'canvas'
-    });
-
     for (start = 86, end = 110; start <= end; start++) {
       animate1.push(prefix + prefixInteger(start, 5) + '.jpg')
     }
 
+    framePlayer.init({
+      nodeClass: 'canvas'
+    });
+
     framePlayer.loadFrame(animate1, 'animate1');
 
     $play.onclick = function() {
-      framePlayer.play('animate1', 3000);
+      framePlayer.play(
+        'animate1',
+        1000,
+        function() {
+          console.log('start');
+        },
+        function() {
+          console.log('end');
+        });
     };
 
     function prefixInteger(num, length) {
