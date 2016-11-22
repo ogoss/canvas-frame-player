@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="canvas,frame,animation">
   <meta name="viewport" content="width=750,target-densitydpi=device-dpi,minimal-ui,user-scalable=no">
-  <title>Canvas Frame Animation Module</title>
+  <title>Canvas Frame Player Module</title>
   <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
@@ -21,7 +21,7 @@
   <script src="./scripts/frame-player.js"></script>
   <script>
   window.onload = function() {
-    var prefix = './images/animate1/ani3_';
+    var prefix = './images/frames/frames1_';
     var animate1 = [];
     var start;
     var end;
@@ -30,8 +30,8 @@
     // var $pause = document.querySelector('#pause');
     // var $stop = document.querySelector('#stop');
 
-    for (start = 86, end = 110; start <= end; start++) {
-      animate1.push(prefix + prefixInteger(start, 5) + '.jpg')
+    for (start = 1, end = 26; start <= end; start++) {
+      animate1.push(prefix + prefixInteger(start, 2) + '.jpg')
     }
 
     framePlayer.init({

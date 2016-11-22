@@ -47,7 +47,15 @@ framePlayer.loadFrame(frames, tag);
 ``` javascript
 /**
  * @param {String} tag 序列帧索引
- * @param {Number} duration 持续时间，单位毫秒
+ * @param {Number} duration 持续时间，单位ms
+ * @param {Function} onPlayStart 开始播放回调函数
+ * @param {Function} onPlayEnd 结束播放回调函数
  */
-framePlayer.play(tag, duration);
+framePlayer.play(tag, duration, onPlayStart, onPlayEnd);
+```
+
+- 清除屏幕内容
+
+``` javascript
+framePlayer.play(tag, duration, onPlayStart, onPlayEnd);
 ```

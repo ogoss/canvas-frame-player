@@ -57,6 +57,9 @@
     }
   }
 
+  /**
+   * 启动循环函数
+   */
   function startLoop() {
     onLoopStart.type = isFunction(onLoopStart.func);
     onLoopProcess.type = isFunction(onLoopProcess.func);
@@ -72,6 +75,9 @@
     loop();
   }
 
+  /**
+   * 循环主函数
+   */
   function loop() {
     if (!looping) {
       if (onLoopEnd.type) {
@@ -90,6 +96,11 @@
     requestAnimationFrame(loop);
   }
 
+  /**
+   * 验证是否是函数
+   * @param {Object} functionToCheck [description]
+   * @return {Boolean}
+   */
   function isFunction(functionToCheck) {
     var getType = {};
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
@@ -215,9 +226,17 @@
     }
   }
 
+  /**
+   * 清除屏幕内容
+   */
+  function clear() {
+    context.clearRect(0, 0, config.width, config.height);
+  }
+
   framePlayer.init = init;
   framePlayer.loadFrame = loadFrame;
   framePlayer.play = play;
+  framePlayer.clear = clear;
 
   return framePlayer;
 }));
