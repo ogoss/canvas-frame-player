@@ -57,5 +57,11 @@ framePlayer.play(tag, duration, onPlayStart, onPlayEnd);
 - 清除屏幕内容
 
 ``` javascript
-framePlayer.play(tag, duration, onPlayStart, onPlayEnd);
+framePlayer.clear();
+```
+
+- 停止动画
+
+``` javascript
+framePlayer.stop();
 ```

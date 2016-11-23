@@ -18,7 +18,6 @@
 
   var framePlayer = {};
 
-
   var config = {
     nodeName: '#canvas',
     nodeClass: '',
@@ -80,9 +79,8 @@
    */
   function loop() {
     if (!looping) {
-      if (onLoopEnd.type) {
-        onLoopEnd.func();
-      }
+      (onLoopEnd.type && start === total) ? onLoopEnd.func(): '';
+
       return;
     }
 
@@ -233,10 +231,18 @@
     context.clearRect(0, 0, config.width, config.height);
   }
 
+  /**
+   * 停止动画
+   */
+  function stop() {
+    looping = false;
+  }
+
   framePlayer.init = init;
   framePlayer.loadFrame = loadFrame;
   framePlayer.play = play;
   framePlayer.clear = clear;
+  framePlayer.stop = stop;
 
   return framePlayer;
 }));
