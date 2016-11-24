@@ -2,15 +2,17 @@
   "name": "canvas-frame-animation",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./app/scripts/frame-player.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dist": "node build.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.17.6",
-    "eslint": "^3.10.1"
+    "eslint": "^3.10.1",
+    "uglify-js": "^2.7.4"
   }
 }

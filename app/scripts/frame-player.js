@@ -1,5 +1,5 @@
 /**
- * Canvas Frame Player
+ * Canvas Frame Player v1.0.0
  */
 ;
 (function(global, factory) {
