@@ -48,6 +48,7 @@ framePlayer.loadFrame(frames, tag);
 /**
  * @param {String} tag 序列帧索引
  * @param {Number} duration 持续时间，单位ms
+ * @param {Number} times 动画播放次数 [times<0:无限次, times=0:不播放, times>0:播放times次]
  * @param {Function} onPlayStart 开始播放回调函数
  * @param {Function} onPlayEnd 结束播放回调函数
  */
