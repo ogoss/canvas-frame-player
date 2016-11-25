@@ -5,15 +5,15 @@
 (function(global, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD
-    define(['loop'], factory);
+    define([], factory);
   } else if (typeof exports === 'object') {
     // CommonJS
-    module.exports = factory(require('loop'));
+    module.exports = factory();
   } else {
     // Browser globals
-    global.framePlayer = factory(global.loop);
+    global.framePlayer = factory();
   }
-}(window, function(loop) {
+}(window, function() {
   var document = window.document;
 
   var framePlayer = {};
@@ -40,7 +40,6 @@
   var onLoopStart = {};
   var onLoopProcess = {};
   var onLoopEnd = {};
-
 
   /**
    * 属性赋值
@@ -141,7 +140,6 @@
     }, 2000);
   }
 
-
   /**
    * 初始化
    * @param {Object} param 参数
@@ -186,8 +184,6 @@
       frames: frames,
       tag: tag
     });
-
-    // TODO: 获取加载完成后状态
   }
 
   /**
