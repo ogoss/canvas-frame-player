@@ -1,6 +1,11 @@
 # CanvasFramePlayer 模块
 
-## 初始化
+## 使用方法
+``` javascript
+<script src="dist/frame-player.min.js"></script>
+```
+
+## 本地测试
 
 - 安装依赖
 
