@@ -57,7 +57,7 @@ framePlayer.loadFrame(frames, tag);
  * @param {Function} onPlayStart 开始播放回调函数
  * @param {Function} onPlayEnd 结束播放回调函数
  */
-framePlayer.play(tag, duration, onPlayStart, onPlayEnd);
+framePlayer.play(tag, duration, times, onPlayStart, onPlayEnd);
 ```
 
 - 清除屏幕内容
