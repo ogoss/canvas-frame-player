@@ -1,0 +1,17 @@
+{
+  "name": "canvas-frame-animation",
+  "description": "",
+  "main": "./app/scripts/frame-player.js",
+  "authors": [
+    "ogoss <343938328@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ogoss/canvas-frame-player",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
