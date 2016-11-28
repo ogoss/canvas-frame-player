@@ -1,7 +1,12 @@
 # CanvasFramePlayer 模块
 
 ## 使用方法
-``` javascript
+```
+/* 使用bower安装 */
+bower install --save canvas-frame-player
+```
+```
+/* 网页直接调用 */
 <script src="dist/frame-player.min.js"></script>
 ```
 
