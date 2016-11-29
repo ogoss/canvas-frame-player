@@ -2,7 +2,11 @@
 
 ## 使用方法
 ```
-/* 使用bower安装 */
+/* 使用npm */
+npm install --save canvas-frame-player
+```
+```
+/* 使用bower */
 bower install --save canvas-frame-player
 ```
 ```

@@ -1,7 +1,7 @@
 {
-  "name": "canvas-frame-animation",
-  "version": "1.0.0",
-  "description": "",
+  "name": "canvas-frame-player",
+  "version": "1.0.1",
+  "description": "使用canvas播放序列帧动画",
   "main": "./app/scripts/frame-player.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
